@@ -58,13 +58,30 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char *roficmd[] = {
+	"rofi",
+	"-show", "run",
+	"-show-icons",
+	"-run-command","/bin/bash -i -c '{cmd}'"
+};
+
+#include <X11/XF86keysym.h>
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_Down,     focusstack,     {.i = +1 } },
+	{ MODKEY,                       XK_d,		spawn,          {.v = roficmd } },
+	{ MODKEY,             			XK_t, 		spawn,          SHCMD("alacritty") },
+	{ MODKEY | ShiftMask,           XK_t, 		spawn,          SHCMD("dir_rofi 'alacritty --working-directory '") },
+	{ MODKEY,             			XK_c, 		spawn,          SHCMD("xfe") },
+	{ MODKEY | ShiftMask,           XK_c, 		spawn,          SHCMD("dir_rofi xfe") },
+	{ MODKEY,             			XK_g, 		spawn,          SHCMD("google-chrome") },
+	{ 0,		XF86XK_MonBrightnessUp, 		spawn,          SHCMD("xbacklight -inc 3") },
+	{ 0,		XF86XK_MonBrightnessDown, 		spawn,          SHCMD("xbacklight -dec 3") },
+	{ 0,		XF86XK_AudioLowerVolume, 		spawn,          SHCMD("pactl set-sink-volume 0 -5% ") },
+	{ 0,		XF86XK_AudioRaiseVolume, 		spawn,          SHCMD("pactl set-sink-volume 0 +5% ") },
+	{ 0,		XF86XK_AudioMute, 		    	spawn,          SHCMD("pactl set-sink-mute 0 toggle") },
+	{ MODKEY,                       XK_b,       togglebar,      {0} },
+	{ MODKEY,                       XK_Down,    focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_Up,   focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_minus,  incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_plus,   incnmaster,     {.i = -1 } },
@@ -73,7 +90,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,             			XK_q,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
+	{ MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
