@@ -4,9 +4,28 @@
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=10" };
-static const char dmenufont[]       = "monospace:size=10";
+static const int topbar             = 0;        /* 0 means bottom bar */
+static const char *fonts[]          = { "monospace:size=10","FontAwesome:size=10"};
+static const char dmenufont[]       = "FontAwesome:size=10";
+
+static const char S_base03[]   = "#002b36";
+static const char S_base02[]   = "#073642";
+static const char S_base01[]   = "#586e75";
+static const char S_base00[]   = "#657b83";
+static const char S_base0[]    = "#839496";
+static const char S_base1[]    = "#93a1a1";
+static const char S_base2[]    = "#eee8d5";
+static const char S_base3[]    = "#fdf6e3";
+static const char S_yellow[]   = "#b58900";
+static const char S_orange[]   = "#cb4b16";
+static const char S_red[]      = "#dc322f";
+static const char S_magenta[]  = "#d33682";
+static const char S_violet[]   = "#6c71c4";
+static const char S_blue[]     = "#268bd2";
+static const char S_cyan[]     = "#2aa198";
+static const char S_green[]    = "#859900";
+
+
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -14,8 +33,8 @@ static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeNorm] = { S_base1, S_base03, S_base03 },
+	[SchemeSel]  = { S_base1, S_base02,  S_base02  },
 };
 
 /* tagging */
@@ -101,6 +120,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -110,6 +130,17 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
+
+	TAGKEYS(                        XK_KP_1,                   0)
+	TAGKEYS(                        XK_KP_2,                   1)
+	TAGKEYS(                        XK_KP_3,                   2)
+	TAGKEYS(                        XK_KP_4,                   3)
+	TAGKEYS(                        XK_KP_5,                   4)
+	TAGKEYS(                        XK_KP_6,                   5)
+	TAGKEYS(                        XK_KP_7,                   6)
+	TAGKEYS(                        XK_KP_8,                   7)
+	TAGKEYS(                        XK_KP_9,                   8)
+
 	{ MODKEY|ShiftMask,             XK_e,      quit,           {0} },
 };
 
