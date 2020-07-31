@@ -125,6 +125,19 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 
+	{ MODKEY|ControlMask,           XK_Right,           shiftview,  { .i = +1 } },
+	{ MODKEY|ControlMask,           XK_Left,           	shiftview,  { .i = -1 } },
+
+	{ MODKEY,           XK_Page_Down,           shiftview,  { .i = +1 } },
+	{ MODKEY,           XK_Page_Up,           	shiftview,  { .i = -1 } },
+
+
+	{ MODKEY,             			XK_F1, 		spawn,          SHCMD("xdotool key F1") },
+	{ MODKEY,             			XK_F2, 		spawn,          SHCMD("xdotool key F2") },
+
+	{ 0,             			XK_F2, 		shiftview,          { .i = +1 } },
+	{ 0,             			XK_F1, 		shiftview,          { .i = -1 } },
+
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
