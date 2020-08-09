@@ -268,6 +268,7 @@ static int xerrordummy(Display *dpy, XErrorEvent *ee);
 static int xerrorstart(Display *dpy, XErrorEvent *ee);
 static void zoom(const Arg *arg);
 static void shiftview(const Arg *arg);
+void shiftlast(const Arg *arg) ;
 
 /* variables */
 static Systray *systray =  NULL;
@@ -2496,6 +2497,45 @@ shiftview(const Arg *arg) {
 	else // right circular shift
 		shifted.ui = selmon->tagset[selmon->seltags] >> (- arg->i)
 		   | selmon->tagset[selmon->seltags] << (LENGTH(tags) + arg->i);
+
+	view(&shifted);
+}
+
+
+/** Function to shift the last view to the left/right
+ *
+ * @param: "arg->i" stores the number of tags to shift right (positive value)
+ *          or left (negative value)
+ */
+void
+shiftlast(const Arg *arg) {
+	Arg shifted;
+	unsigned int rightmost = 1;
+	unsigned int current_tags = selmon->tagset[selmon->seltags];
+	for(int i=1;i<8;i++){
+		if(current_tags & (1<<i)){
+			rightmost=(1<<i);
+		}
+	}
+
+	unsigned int new_rightmost = 0;
+
+	if(arg->i > 0) // left circular shift
+	{
+		new_rightmost = rightmost << arg->i;
+	}else{
+		new_rightmost = rightmost >> (- arg->i);
+	}
+	
+	if(new_rightmost==(1<<8)){
+		new_rightmost=(1<<7);
+	}
+
+	if((current_tags ^ rightmost) == 0){
+		shifted.ui= current_tags | new_rightmost;
+	}else{
+		shifted.ui=(current_tags ^ rightmost) | new_rightmost;
+	}
 
 	view(&shifted);
 }

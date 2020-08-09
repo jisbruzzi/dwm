@@ -51,7 +51,9 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	{ "Spotify",  NULL,  NULL,       1 << 8,       0,           -1 },
+	{ NULL,       NULL, "WhatsApp",       1 << 7,       1,           -1 },
+	{ NULL,       NULL, "Telegram Web",       1 << 7,       1,           -1 },
 };
 
 /* layout(s) */
@@ -128,15 +130,20 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_Right,           shiftview,  { .i = +1 } },
 	{ MODKEY|ControlMask,           XK_Left,           	shiftview,  { .i = -1 } },
 
+	{ MODKEY|ControlMask,           XK_Up,           shiftlast,  { .i = +1 } },
+	{ MODKEY|ControlMask,           XK_Down,           	shiftlast,  { .i = -1 } },
+
 	{ MODKEY,           XK_Page_Down,           shiftview,  { .i = +1 } },
 	{ MODKEY,           XK_Page_Up,           	shiftview,  { .i = -1 } },
 
 
+	/*
 	{ MODKEY,             			XK_F1, 		spawn,          SHCMD("xdotool key F1") },
 	{ MODKEY,             			XK_F2, 		spawn,          SHCMD("xdotool key F2") },
 
 	{ 0,             			XK_F2, 		shiftview,          { .i = +1 } },
 	{ 0,             			XK_F1, 		shiftview,          { .i = -1 } },
+	*/
 
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
