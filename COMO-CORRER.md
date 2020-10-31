@@ -1,0 +1,1 @@
+Hay que agregar a /usr/share/xsessions el archivo .desktop en este repo
