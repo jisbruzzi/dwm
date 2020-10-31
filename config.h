@@ -38,7 +38,7 @@ static const char col_cyan[]        = "#005577";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { S_base1, S_base03, S_base03 },
-	[SchemeSel]  = { S_base1, S_base02,  S_base02  },
+	[SchemeSel]  = { S_base1, S_base01,  S_base01  },
 };
 
 /* tagging */
@@ -105,9 +105,12 @@ static Key keys[] = {
 	{ MODKEY,                       XK_d,		spawn,          {.v = roficmd } },
 	{ MODKEY,             			XK_t, 		spawn,          SHCMD("alacritty") },
 	{ MODKEY | ShiftMask,           XK_t, 		spawn,          SHCMD("dir_rofi 'alacritty --working-directory '") },
+	{ MODKEY,           			XK_o, 		spawn,          SHCMD("dir_rofi devco") },
+	{ MODKEY | ShiftMask,           XK_o, 		spawn,          SHCMD("dir_rofi devem") },
 	{ MODKEY,             			XK_c, 		spawn,          SHCMD("xfe") },
 	{ MODKEY | ShiftMask,           XK_c, 		spawn,          SHCMD("dir_rofi xfe") },
 	{ MODKEY,             			XK_g, 		spawn,          SHCMD("google-chrome") },
+	{ MODKEY | ShiftMask,           XK_g, 		spawn,          SHCMD("qutebrowser") },
 	{ 0,		XF86XK_MonBrightnessUp, 		spawn,          SHCMD("xbacklight -inc 3") },
 	{ 0,		XF86XK_MonBrightnessDown, 		spawn,          SHCMD("xbacklight -dec 3") },
 	{ 0,		XF86XK_AudioLowerVolume, 		spawn,          SHCMD("pactl set-sink-volume 0 -5% ") },
