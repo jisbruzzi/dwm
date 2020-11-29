@@ -55,7 +55,7 @@ static const Rule rules[] = {
 	/* class      instance        title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,           NULL,       0,            1,           -1 },
 	{ "Spotify",  NULL,  	      NULL,       1 << 8,       1,           -1 },
-	{ "Firefox",  NULL,  	      NULL,       1 << 8,       1,           -1 },
+	/*{ "Firefox",  NULL,  	      NULL,       1 << 8,       1,           -1 },*/
 	{ NULL,       NULL,     "WhatsApp",       1 << 7,       1,           -1 },
 	{ NULL,       NULL, "Telegram Web",       1 << 7,       1,           -1 },
 };
@@ -100,6 +100,11 @@ static const char *roficmd[] = {
 
 #include <X11/XF86keysym.h>
 
+static SuperKey superkey={
+	spawn,
+	{.v = roficmd }
+};
+
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_d,		spawn,          {.v = roficmd } },
@@ -109,8 +114,9 @@ static Key keys[] = {
 	{ MODKEY | ShiftMask,           XK_o, 		spawn,          SHCMD("dir_rofi devem") },
 	{ MODKEY,             			XK_c, 		spawn,          SHCMD("xfe") },
 	{ MODKEY | ShiftMask,           XK_c, 		spawn,          SHCMD("dir_rofi xfe") },
-	{ MODKEY,             			XK_g, 		spawn,          SHCMD("google-chrome") },
-	{ MODKEY | ShiftMask,           XK_g, 		spawn,          SHCMD("qutebrowser") },
+	{ MODKEY,             			XK_g, 		spawn,          SHCMD("firefox --new-instance") },
+	{ MODKEY | ControlMask,         XK_g, 		spawn,          SHCMD("qutebrowser") },
+	{ MODKEY | ShiftMask,           XK_g, 		spawn,          SHCMD("google-chrome") },
 	{ 0,		XF86XK_MonBrightnessUp, 		spawn,          SHCMD("xbacklight -inc 3") },
 	{ 0,		XF86XK_MonBrightnessDown, 		spawn,          SHCMD("xbacklight -dec 3") },
 	{ 0,		XF86XK_AudioLowerVolume, 		spawn,          SHCMD("pactl set-sink-volume 0 -5% ") },
