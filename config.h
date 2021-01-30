@@ -55,9 +55,11 @@ static const Rule rules[] = {
 	/* class      instance        title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,           NULL,       0,            1,           -1 },
 	{ "Spotify",  NULL,  	      NULL,       1 << 8,       1,           -1 },
+	{ "Gnome-pomodoro", NULL,  	  NULL,       0,       		1,           -1 },
 	/*{ "Firefox",  NULL,  	      NULL,       1 << 8,       1,           -1 },*/
-	{ NULL,       NULL,     "WhatsApp",       1 << 7,       1,           -1 },
-	{ NULL,       NULL, "Telegram Web",       1 << 7,       1,           -1 },
+	/*{ NULL,       NULL,     "WhatsApp",       1 << 7,       1,           -1 },*/
+	/*{ NULL,       NULL, "Telegram Web",       1 << 7,       1,           -1 },*/
+	{ "Crow Translate", NULL,     NULL,       0,            1,           -1 },
 };
 
 /* layout(s) */
@@ -104,12 +106,15 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_d,		spawn,          {.v = roficmd } },
 	{ MODKEY,             			XK_t, 		spawn,          SHCMD("alacritty") },
+	{ MODKEY,             			XK_ntilde, 		spawn,          SHCMD("crow") },
+	{ MODKEY,             			XK_p, 		spawn,          SHCMD("gnome-pomodoro") },
+	{ MODKEY | ShiftMask,           XK_p, 		spawn,          SHCMD("gnome-pomodoro --pause-resume") },
 	{ MODKEY | ShiftMask,           XK_t, 		spawn,          SHCMD("dir_rofi 'alacritty --working-directory '") },
 	{ MODKEY,           			XK_o, 		spawn,          SHCMD("dir_rofi devco") },
 	{ MODKEY | ShiftMask,           XK_o, 		spawn,          SHCMD("dir_rofi devem") },
 	{ MODKEY,             			XK_c, 		spawn,          SHCMD("xfe") },
 	{ MODKEY | ShiftMask,           XK_c, 		spawn,          SHCMD("dir_rofi xfe") },
-	{ MODKEY,             			XK_g, 		spawn,          SHCMD("firefox") },
+	{ MODKEY,             			XK_g, 		spawn,          SHCMD("firefox -P default-release") },
 	{ MODKEY | ShiftMask,           XK_g, 		spawn,          SHCMD("google-chrome") },
 	{ MODKEY | ControlMask,         XK_g, 		spawn,          SHCMD("qutebrowser") },
 	{ 0,		XF86XK_MonBrightnessUp, 		spawn,          SHCMD("xbacklight -inc 3") },
