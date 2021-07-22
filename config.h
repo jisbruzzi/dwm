@@ -56,10 +56,11 @@ static const Rule rules[] = {
 	{ "Gimp",     NULL,           NULL,       0,            1,           -1 },
 	{ "Spotify",  NULL,  	      NULL,       1 << 8,       1,           -1 },
 	{ "Gnome-pomodoro", NULL,  	  NULL,       0,       		1,           -1 },
+	{ "Gnome-pomodoro", NULL,  	  NULL,       0,       		1,           -1 },
 	/*{ "Firefox",  NULL,  	      NULL,       1 << 8,       1,           -1 },*/
 	/*{ NULL,       NULL,     "WhatsApp",       1 << 7,       1,           -1 },*/
 	/*{ NULL,       NULL, "Telegram Web",       1 << 7,       1,           -1 },*/
-	{ "Crow Translate", NULL,     NULL,       0,            1,           -1 },
+	{ "copyq", NULL,     NULL,       0,            1,           -1 },
 };
 
 /* layout(s) */
@@ -106,7 +107,9 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_d,		spawn,          {.v = roficmd } },
 	{ MODKEY,             			XK_t, 		spawn,          SHCMD("alacritty") },
+	{ MODKEY,             			XK_bracketleft, 		spawn,          SHCMD("alacritty") },
 	{ MODKEY,             			XK_ntilde, 		spawn,          SHCMD("crow") },
+	{ MODKEY,             			XK_l, 		spawn,          SHCMD("todoist") },
 	{ MODKEY,             			XK_p, 		spawn,          SHCMD("gnome-pomodoro") },
 	{ MODKEY | ShiftMask,           XK_p, 		spawn,          SHCMD("gnome-pomodoro --pause-resume") },
 	{ MODKEY | ShiftMask,           XK_t, 		spawn,          SHCMD("dir_rofi 'alacritty --working-directory '") },
@@ -117,6 +120,7 @@ static Key keys[] = {
 	{ MODKEY,             			XK_g, 		spawn,          SHCMD("firefox -P default-release") },
 	{ MODKEY | ShiftMask,           XK_g, 		spawn,          SHCMD("google-chrome") },
 	{ MODKEY | ControlMask,         XK_g, 		spawn,          SHCMD("qutebrowser") },
+	{ MODKEY | ControlMask,         XK_v, 		spawn,          SHCMD("copyq toggle") },
 	{ 0,		XF86XK_MonBrightnessUp, 		spawn,          SHCMD("xbacklight -inc 3") },
 	{ 0,		XF86XK_MonBrightnessDown, 		spawn,          SHCMD("xbacklight -dec 3") },
 	{ 0,		XF86XK_AudioLowerVolume, 		spawn,          SHCMD("pactl set-sink-volume 1 -5% ") },
