@@ -52,15 +52,22 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance        title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,           NULL,       0,            1,           -1 },
-	{ "Spotify",  NULL,  	      NULL,       1 << 8,       1,           -1 },
-	{ "Gnome-pomodoro", NULL,  	  NULL,       0,       		1,           -1 },
-	{ "Gnome-pomodoro", NULL,  	  NULL,       0,       		1,           -1 },
+	/* class      instance        title       tags mask     isfloating   monitor scratch key*/
+	{ "Gimp",     NULL,           NULL,       0,            1,           -1, 0 },
+	{ "Spotify",  NULL,  	      NULL,       1 << 8,       1,           -1, 0 },
+	{ "Gnome-pomodoro", NULL,  	  NULL,       0,       		1,           -1, 0 },
+	{ "Gnome-pomodoro", NULL,  	  NULL,       0,       		1,           -1, 0 },
 	/*{ "Firefox",  NULL,  	      NULL,       1 << 8,       1,           -1 },*/
 	/*{ NULL,       NULL,     "WhatsApp",       1 << 7,       1,           -1 },*/
 	/*{ NULL,       NULL, "Telegram Web",       1 << 7,       1,           -1 },*/
-	{ "copyq", NULL,     NULL,       0,            1,           -1 },
+	{ "copyq", NULL,     NULL,       0,            1,           -1, 0 },
+	{ NULL, "telegram-desktop",     NULL,       0,            1,           -1, 't' },
+	{ NULL, "web.whatsapp.com",     NULL,       0,            1,           -1, 'w' },
+	{ NULL, "outlook.office.com",     NULL,       0,            1,           -1, 'm' },
+
+	{ NULL, "slack",     NULL,       0,            1,           -1, 's' },
+	{ NULL, "todoist",     NULL,       0,            1,           -1, 'l' },
+	
 };
 
 /* layout(s) */
@@ -100,16 +107,26 @@ static const char *roficmd[] = {
 	"-show-icons",
 	"-run-command","/bin/bash -i -c '{cmd}'"
 };
-
+static const char *telegramcmd[] = {"t", "telegram-desktop", NULL}; 
+static const char *firefoxcmd[] = {"w", "google-chrome", "--app=https://web.whatsapp.com/", NULL}; 
+static const char *officecmd[] = {"m", "google-chrome", "--app=https://outlook.office.com/", NULL}; 
+static const char *slackcdm[] = {"s", "slack", NULL}; 
+static const char *todoistcdm[] = {"l", "todoist", NULL};
+ 
 #include <X11/XF86keysym.h>
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
+	{ MODKEY,                       XK_s,  togglescratch,  {.v = slackcdm } },
+	{ MODKEY,                       XK_z,  togglescratch,  {.v = telegramcmd } },
+	{ MODKEY,                       XK_w,  togglescratch,  {.v = firefoxcmd } },
+	{ MODKEY,                       XK_l,  togglescratch,  {.v = todoistcdm } },
+	{ MODKEY,                       XK_m,  togglescratch,  {.v = officecmd } },
+	
 	{ MODKEY,                       XK_d,		spawn,          {.v = roficmd } },
 	{ MODKEY,             			XK_t, 		spawn,          SHCMD("alacritty") },
 	{ MODKEY,             			XK_bracketleft, 		spawn,          SHCMD("alacritty") },
 	{ MODKEY,             			XK_ntilde, 		spawn,          SHCMD("crow") },
-	{ MODKEY,             			XK_l, 		spawn,          SHCMD("todoist") },
 	{ MODKEY,             			XK_p, 		spawn,          SHCMD("gnome-pomodoro") },
 	{ MODKEY | ShiftMask,           XK_p, 		spawn,          SHCMD("gnome-pomodoro --pause-resume") },
 	{ MODKEY | ShiftMask,           XK_t, 		spawn,          SHCMD("dir_rofi 'alacritty --working-directory '") },
