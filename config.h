@@ -63,7 +63,8 @@ static const Rule rules[] = {
 	{ "copyq", NULL,     NULL,       0,            1,           -1, 0 },
 	{ NULL, "telegram-desktop",     NULL,       0,            1,           -1, 't' },
 	{ NULL, "web.whatsapp.com",     NULL,       0,            1,           -1, 'w' },
-	{ NULL, "outlook.office.com",     NULL,       0,            1,           -1, 'm' },
+	//{ NULL, "outlook.office.com",     NULL,       0,            1,           -1, 'm' },
+	{ NULL, "evolution",     NULL,       0,            1,           -1, 'm' },
 
 	{ NULL, "slack",     NULL,       0,            1,           -1, 's' },
 	{ NULL, "todoist",     NULL,       0,            1,           -1, 'l' },
@@ -103,18 +104,40 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "st", NULL };
 static const char *roficmd[] = {
 	"rofi",
+	"-show", "combi",
+	"-show-icons",
+	"-run-command","/bin/bash -i -c '{cmd}'",
+	"-combi-modi", "run,drun,loc:/home/jose/.config/rofi/locate.sh,cloc:/home/jose/.config/rofi/clocate.sh",
+	"-modi","combi"
+};
+static const char *simple_roficmd[] = {
+	"rofi",
 	"-show", "run",
 	"-show-icons",
 	"-run-command","/bin/bash -i -c '{cmd}'"
 };
+static const char *open_roficmd[] = {
+	"rofi",
+	"-show", "cloc",
+	"-modi","cloc:/home/jose/.config/rofi/clocate.sh"
+};
+static const char *code_roficmd[] = {
+	"rofi",
+	"-show", "cloc",
+	"-modi","cloc:/home/jose/.config/rofi/code_locate.sh"
+};
+static const char *term_roficmd[] = {
+	"rofi",
+	"-show", "cloc",
+	"-modi","cloc:/home/jose/.config/rofi/term_locate.sh"
+};
 static const char *telegramcmd[] = {"t", "telegram-desktop", NULL}; 
-static const char *firefoxcmd[] = {"w", "google-chrome", "--app=https://web.whatsapp.com/", NULL}; 
-static const char *officecmd[] = {"m", "google-chrome", "--app=https://outlook.office.com/", NULL}; 
+static const char *firefoxcmd[] = {"w", "chromium", "--app=https://web.whatsapp.com/", NULL}; 
+static const char *officecmd[] = {"m","evolution","--component=mail",NULL};//{"m", "chromium", "--app=https://outlook.office.com/", NULL}; 
 static const char *slackcdm[] = {"s", "slack", NULL}; 
 static const char *todoistcdm[] = {"l", "todoist", NULL};
  
 #include <X11/XF86keysym.h>
-
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_s,  togglescratch,  {.v = slackcdm } },
@@ -123,19 +146,22 @@ static Key keys[] = {
 	{ MODKEY,                       XK_l,  togglescratch,  {.v = todoistcdm } },
 	{ MODKEY,                       XK_m,  togglescratch,  {.v = officecmd } },
 	
-	{ MODKEY,                       XK_d,		spawn,          {.v = roficmd } },
-	{ MODKEY,             			XK_t, 		spawn,          SHCMD("alacritty") },
-	{ MODKEY,             			XK_bracketleft, 		spawn,          SHCMD("alacritty") },
+	{ MODKEY,                       XK_d,		spawn,          {.v = simple_roficmd } },
+	{ MODKEY | ShiftMask,           XK_d,		spawn,          {.v = code_roficmd } },
+	{ MODKEY,                       XK_a,		spawn,          {.v = roficmd } },
+	{ MODKEY | ShiftMask,           XK_a,		spawn,          {.v = open_roficmd } },
+	{ MODKEY,             			XK_t, 		spawn,          SHCMD("kitty -1") },
+	{ MODKEY | ShiftMask,           XK_t, 		spawn,          {.v = term_roficmd } },
 	{ MODKEY,             			XK_ntilde, 		spawn,          SHCMD("crow") },
 	{ MODKEY,             			XK_p, 		spawn,          SHCMD("gnome-pomodoro") },
 	{ MODKEY | ShiftMask,           XK_p, 		spawn,          SHCMD("gnome-pomodoro --pause-resume") },
-	{ MODKEY | ShiftMask,           XK_t, 		spawn,          SHCMD("dir_rofi 'alacritty --working-directory '") },
 	{ MODKEY,           			XK_o, 		spawn,          SHCMD("dir_rofi devco") },
 	{ MODKEY | ShiftMask,           XK_o, 		spawn,          SHCMD("dir_rofi devem") },
 	{ MODKEY,             			XK_c, 		spawn,          SHCMD("xfe") },
 	{ MODKEY | ShiftMask,           XK_c, 		spawn,          SHCMD("dir_rofi xfe") },
-	{ MODKEY,             			XK_g, 		spawn,          SHCMD("firefox") },
-	{ MODKEY | ShiftMask,           XK_g, 		spawn,          SHCMD("firefox -P ") },
+	{ MODKEY,             			XK_g, 		spawn,          SHCMD("vivaldi") },
+	{ MODKEY | ShiftMask,           XK_g, 		spawn,          SHCMD("firefox") },
+	{ MODKEY | ShiftMask | ControlMask, XK_g, 		spawn,          SHCMD("firefox -P ") },
 	{ MODKEY | ControlMask,         XK_g, 		spawn,          SHCMD("qutebrowser") },
 	{ MODKEY | ControlMask,         XK_v, 		spawn,          SHCMD("copyq toggle") },
 	{ 0,		XF86XK_MonBrightnessUp, 		spawn,          SHCMD("xbacklight -inc 3") },
