@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "new": "c",
-        "numeric": "c"
+        "numeric": "c",
+        "typeinfo": "c"
     }
 }
